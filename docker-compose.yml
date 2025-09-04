@@ -5,7 +5,7 @@ services:
     build: .
     container_name: stream-redirector
     ports:
-      - "6095:5000"  # Host port 6095 maps to container port 5000
+      - "6095:6095"  # Host port 6095 maps to container port 6095
     environment:
       - FLASK_ENV=production
     restart: unless-stopped
