@@ -6,6 +6,4 @@ services:
     container_name: youtube-to-m3u8
     ports:
       - "6095:6095"
-    environment:
-      - STREAM_API_TOKEN=your-secret-token
     restart: unless-stopped
