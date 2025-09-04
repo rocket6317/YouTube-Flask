@@ -1,6 +1,6 @@
 # 🎬 YouTube Livestream Redirector
 
-A lightweight Flask-based service that redirects users to the best available stream URL for a given YouTube livestream — with smart caching.  
+A lightweight Flask-based service that extracts a YouTube livestream .m3u8 HLS URL and serves it in a way that IPTV players (like OTT Navigator, TiviMate, VLC) can consume — with smart caching.  
 
 ## 🚀 Features
 
