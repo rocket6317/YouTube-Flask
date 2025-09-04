@@ -5,10 +5,11 @@ import logging
 
 # Logging setup
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+logging.getLogger().setLevel(logging.INFO)
 
 app = Flask(__name__)
 
-# Cache: max 100 entries, TTL = 6 hours
+# Cache: max 100 entries, TTL = 6 hours (21600 seconds)
 cache = TTLCache(maxsize=100, ttl=21600)
 
 def get_stream_url(youtube_url):
@@ -52,13 +53,13 @@ def stream():
         logging.warning("Missing 'url' or 'name' parameter")
         return "Missing url or name parameter", 400
 
-    key = f"name:{custom_name}"
+    key = f"name:{custom_name.strip().lower()}"
     logging.info(f"Using cache key: {key}")
 
-    if key in cache:
-        logging.info("Cache hit – returning cached stream URL")
+    try:
         stream_url = cache[key]
-    else:
+        logging.info("Cache hit – returning cached stream URL")
+    except KeyError:
         logging.info("Cache miss – fetching new stream URL")
         try:
             stream_url = get_stream_url(youtube_url)
