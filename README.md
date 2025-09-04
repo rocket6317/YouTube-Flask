@@ -17,7 +17,7 @@ Here’s a variety of YouTube link formats you can use with your redirector serv
 streams, videos, playlists, and short URLs so you can test all the edge cases.  
 
 These are all valid inputs for your /stream endpoint. Just pair them with a custom name by adding &name=any_name_you_give like:
-http://localhost:6095//stream?url=https://www.youtube.com/@MrBeast/live**&name=beast**  
+http://localhost:6095//stream?url=https://www.youtube.com/@MrBeast/live&name=beast  
 
 📺 Standard Video Links
 
