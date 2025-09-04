@@ -6,6 +6,12 @@ services:
     container_name: youtube-to-m3u8
     ports:
       - "6095:6095"
-    env_file:
-      - .env
+    secrets:
+      - stream_api_token
+    environment:
+      - STREAM_API_TOKEN_FILE=/run/secrets/stream_api_token
     restart: unless-stopped
+
+secrets:
+  stream_api_token:
+    external: true
