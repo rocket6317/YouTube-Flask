@@ -5,5 +5,7 @@ services:
     build: .
     container_name: youtube-to-m3u8
     ports:
-      - "6095:6095"
+      - "6095:6095"  # Host port 6095 maps to container port 6095
+    environment:
+      - FLASK_ENV=production
     restart: unless-stopped
