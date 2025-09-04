@@ -2,23 +2,12 @@ from flask import Flask, request, redirect
 from cachetools import TTLCache
 import yt_dlp
 import logging
-import os
 
 # Logging setup
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 logging.getLogger().setLevel(logging.INFO)
 
 app = Flask(__name__)
-
-# 🔐 Load token from Docker Secret file or fallback to env
-def load_secret_token():
-    try:
-        with open("/run/secrets/stream_api_token", "r") as f:
-            return f.read().strip()
-    except Exception:
-        return os.getenv("STREAM_API_TOKEN", "default-token")
-
-SECRET_TOKEN = load_secret_token()
 
 # 🧠 Cache: max 100 entries, TTL = 6 hours
 cache = TTLCache(maxsize=100, ttl=21600)
@@ -47,15 +36,10 @@ def get_m3u8_url(youtube_url):
 def m3u8():
     youtube_url = request.args.get('url')
     custom_name = request.args.get('name')
-    token = request.args.get('token')
 
-    if not youtube_url or not custom_name or not token:
-        logging.warning("Missing url, name, or token")
-        return "Missing url, name, or token", 400
-
-    if token != SECRET_TOKEN:
-        logging.warning(f"Unauthorized token: {token}")
-        return "Unauthorized", 403
+    if not youtube_url or not custom_name:
+        logging.warning("Missing url or name parameter")
+        return "Missing url or name parameter", 400
 
     key = f"name:{custom_name.strip().lower()}"
     logging.info(f"Using cache key: {key}")
