@@ -10,10 +10,10 @@ logging.getLogger().setLevel(logging.INFO)
 
 app = Flask(__name__)
 
-# Secret token for access control (can be set via environment variable)
-SECRET_TOKEN = os.getenv("STREAM_API_TOKEN", "Cv579E$uaEMj&%b*7J0@")
+# 🔐 Load secret token from environment variable
+SECRET_TOKEN = os.getenv("STREAM_API_TOKEN", "your-secret-token")
 
-# Cache: max 100 entries, TTL = 6 hours
+# 🧠 In-memory cache: max 100 entries, TTL = 6 hours
 cache = TTLCache(maxsize=100, ttl=21600)
 
 def get_m3u8_url(youtube_url):
