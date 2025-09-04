@@ -17,5 +17,4 @@ RUN pip install flask yt-dlp cachetools gunicorn
 
 EXPOSE 6095
 
-# CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:6095", "app:app"]
-CMD ["gunicorn", "--workers", "3", "--threads", "2", "--bind", "0.0.0.0:6095", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:6095", "app:app", "--workers", "3", "--threads", "2", "--log-level", "info", "--access-logfile", "-", "--error-logfile", "-"]
